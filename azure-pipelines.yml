@@ -10,6 +10,11 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: UseDotNet@2
+  displayName: Instalando o .NET 5
+  inputs:
+    packageType: 'sdk'
+    version: '5.0.100'
 - script: dotnet --list-sdks
   displayName: Listar versões do .NET
 - task: DotNetCoreCLI@2
