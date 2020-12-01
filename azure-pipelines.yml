@@ -10,9 +10,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: Listar versões do .NET
-  displayName: dotnet --list-sdks
+- script: dotnet --list-sdks
+  displayName: Listar versões do .NET
 - task: DotNetCoreCLI@2
+  displayName: Executar testes
   inputs:
     command: 'test'
     projects: '**/APITemperatura.Especificacoes.csproj'
