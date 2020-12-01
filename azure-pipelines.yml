@@ -23,3 +23,21 @@ steps:
     command: 'test'
     projects: '**/APITemperatura.Especificacoes.csproj'
     testRunTitle: 'Teste da API de Temperatura'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    workingDirectory: './APITemperatura'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'apitemperatura-publish'
+    publishLocation: 'Container'
+- task: AzureRmWebAppDeployment@4
+  displayName: Deployment no Azure
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Microsoft Azure Sponsorship(f3e7d90b-efba-4481-ac3d-d8df26b6235d)'
+    appType: 'webApp'
+    WebAppName: 'groffetestesarezzo'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
